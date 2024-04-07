@@ -1,5 +1,5 @@
 name: Scheduled Task Runner
-
+workflow_dispatch:
 on:
   schedule:
     # Runs at every 10th minute
