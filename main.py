@@ -179,17 +179,40 @@ def prepare_batch_request_for_tasks(task_lists, updated_after):
     print("Prepared batch request for tasks ✓")
     return {"requests": requests_data}
 
+def split_batch_request(batch_request, chunk_size=20):
+    # Split the original request's 'requests' list into chunks
+    request_chunks = [batch_request['requests'][i:i + chunk_size] for i in range(0, len(batch_request['requests']), chunk_size)]
+    # Create a new batch request for each chunk
+    return [{"requests": chunk} for chunk in request_chunks]
+
+def process_batch_requests(url, headers, batch_requests):
+    combined_response = {'responses': []}
+    for batch_request in batch_requests:
+        response = safe_request(url, headers=headers, data=json.dumps(batch_request), method='post')
+        if response and response.status_code == 200:
+            batch_response = response.json()
+            combined_response['responses'].extend(batch_response.get('responses', []))
+        else:
+            print("Failed to process a batch request")
+    return combined_response
+
 def main():
     global start_time
     updated_after = (datetime.datetime.utcnow() - datetime.timedelta(days=720000)).isoformat() + 'Z'
     task_lists = get_task_lists()
     batch_request = prepare_batch_request_for_tasks(task_lists, updated_after)
+    
+    # Split the batch request into chunks of 20
+    batch_requests = split_batch_request(batch_request, chunk_size=20)
+    
     url = 'https://graph.microsoft.com/v1.0/$batch'
     headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
-    response = safe_request(url, headers=headers, data=json.dumps(batch_request), method='post')
-    if response and response.status_code == 200:
-        tasks_response = response.json()
-        check_and_update_revision_task(tasks_response, task_lists, updated_after)
+    
+    # Process each chunked batch request and combine the responses
+    combined_response = process_batch_requests(url, headers, batch_requests)
+    
+    if combined_response['responses']:
+        check_and_update_revision_task(combined_response, task_lists, updated_after)
     else:
         print("Failed to fetch updated tasks")
 
