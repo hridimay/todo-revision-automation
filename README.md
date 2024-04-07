@@ -6,11 +6,13 @@ Study Revision Plan Maker is a Python script designed to help students and learn
 
 - **Automated Task Management:** Create or update revision tasks in Microsoft To Do.
 - **Custom Task Format:** Tasks are formatted with specific annotations for better organization.
+ 
     - **Redo**
     - **Doubt**
     - **Didn't Attempt**
     - **(/) Not done at once ❌**
-    - **x% Questions ✅**
+    - **% Questions ✅**
+ 
 - **Efficient Revision Tracking:** Sorts tasks by percentage of questions done, helping you prioritize your study focus.
 
 ## Prerequisites
@@ -26,7 +28,7 @@ Before running this script, ensure you have the following:
 1. Clone this repository to your local machine.
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/hridimay/todo-revision-automation.git
     ```
 
 2. Install the required Python packages.
@@ -49,4 +51,4 @@ Before running this script, ensure you have the following:
 To run the Study Revision Plan Maker, execute the script in your terminal.
 
 ```bash
-python study_revision_plan_maker.py
+python main.py
