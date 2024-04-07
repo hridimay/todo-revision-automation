@@ -1,0 +1,26 @@
+name: Scheduled Task Runner
+
+on:
+  schedule:
+    # Runs at every 10th minute
+    - cron: '*/10 * * * *'
+
+jobs:
+  task-runner:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        pip install msal requests
+    - name: Run script
+      env:
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        TENANT_ID: ${{ secrets.TENANT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+      run: python main.py
