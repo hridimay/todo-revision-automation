@@ -2,7 +2,7 @@ name: Scheduled Task Runner
 on:
   workflow_dispatch:
   schedule:
-    # Runs at every 5th minute
+    # Runs at every 10th minute
     - cron: '*/10 * * * *'
 
 jobs:
