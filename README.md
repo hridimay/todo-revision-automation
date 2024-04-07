@@ -52,3 +52,16 @@ To run the Study Revision Plan Maker, execute the script in your terminal.
 
 ```bash
 python main.py
+```
+
+## Contributing
+
+We love contributions from everyone! If you have ideas for how to improve this project, please [fork the repo](#) and open a pull request, or you can open an issue. Please follow our [Code of Conduct](#) while participating in this project.
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE). See the LICENSE file for more details.
+
+## Disclaimer
+
+This project is not affiliated with, sponsored by, or endorsed by any of the platforms it interacts with. It was created for educational purposes, and its use should adhere to the terms and conditions of the APIs or services it interacts with. The maintainers of this project are not liable for any misuse or damages caused by using this software.
