@@ -24,7 +24,3 @@ jobs:
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
       run: python main.py
-
-    - name: Keepalive Workflow
-      uses: gautamkrishnar/keepalive-workflow@2.0.5
-            
